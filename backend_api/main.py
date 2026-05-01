@@ -19,8 +19,11 @@ from pydub import AudioSegment
 from pydub.silence import detect_nonsilent
 
 import models, database
+print("🔥 Starting app...")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+print("BASE DIR:", BASE_DIR)
+print("FILES IN MODELS:", os.listdir(os.path.join(BASE_DIR, "models")))
 
 # ---- Animal list for Task 2 ----
 ANIMAL_LIST = {

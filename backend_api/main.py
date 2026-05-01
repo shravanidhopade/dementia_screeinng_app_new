@@ -64,12 +64,27 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=database.engine)
 
 # Load machine learning model and scaler
-MODEL_PATH = os.getenv("MODEL_PATH", os.path.join(BASE_DIR, "models", "model.pkl"))
-SCALER_PATH = os.getenv("SCALER_PATH", os.path.join(BASE_DIR, "models", "scaler.pkl"))
+# MODEL_PATH = "../ml_model/modelssg/model.pkl"
+# SCALER_PATH = "../ml_model/models/scaler.pkl"
+
+# if os.path.exists(MODEL_PATH) and os.path.exists(SCALER_PATH):
+#     model = joblib.load(MODEL_PATH)
+#     scaler = joblib.load(SCALER_PATH)
+# else:
+#     model = None
+#     scaler = None
+#     print("Warning: Model or scaler not found.")
+
+MODEL_PATH = os.path.join(BASE_DIR, "models", "model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "models", "scaler.pkl")
+
+print("MODEL PATH:", MODEL_PATH)
+print("SCALER PATH:", SCALER_PATH)
 
 if os.path.exists(MODEL_PATH) and os.path.exists(SCALER_PATH):
     model = joblib.load(MODEL_PATH)
     scaler = joblib.load(SCALER_PATH)
+    print("✅ Model loaded successfully")
 else:
     model = None
     scaler = None

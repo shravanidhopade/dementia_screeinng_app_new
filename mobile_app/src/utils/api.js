@@ -2,7 +2,9 @@ import axios from 'axios';
 import { getData, saveData } from './storage';
 
 // Use the machine's local IP address so physical phones can connect to the backend
-const API_URL = 'http://192.168.1.211:8000'; 
+// const API_URL = 'http://192.168.1.211:8000'; 
+
+const API_URL = 'https://dementia-api-vjr7.onrender.com';
 
 // Register a new user
 export const registerUser = async (userData) => {

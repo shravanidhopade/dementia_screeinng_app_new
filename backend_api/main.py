@@ -402,3 +402,16 @@ def get_history(current_user: models.User = Depends(get_current_user), db: Sessi
 @app.get("/")
 def read_root():
     return {"message": "Dementia Screening API with Patient Storage is running."}
+
+
+@app.get("/all-users")
+def get_all_users(db: Session = Depends(database.get_db)):
+    users = db.query(models.User).all()
+    return [
+        {
+            "id": user.id,
+            "username": user.username,
+            "age": user.age
+        }
+        for user in users
+    ] 

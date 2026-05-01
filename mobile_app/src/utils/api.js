@@ -62,7 +62,13 @@ export const loginUser = async (username, password) => {
 export const predictRisk = async (features) => {
   try {
     const token = await getData('@auth_token');
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    console.log("🧪 TOKEN USED IN PREDICT:", token);
+    const headers = token 
+  ? { 
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    } 
+  : {};
     
     const response = await axios.post(`${API_URL}/predict`, features, { headers });
     return response.data;
@@ -79,6 +85,7 @@ export const predictRisk = async (features) => {
 export const fetchHistory = async () => {
   try {
     const token = await getData('@auth_token');
+    console.log("🧪 TOKEN USED IN HISTORY:", token);
     if (!token) return null;
     
     const response = await axios.get(`${API_URL}/history`, {

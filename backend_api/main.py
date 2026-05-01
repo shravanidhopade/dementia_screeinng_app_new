@@ -345,10 +345,16 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict_risk(
+    
+    
     features: PredictionFeatures, 
     current_user: Optional[models.User] = Depends(get_current_user), 
     db: Session = Depends(database.get_db)
+   
 ):
+
+    print("🔥 /predict API called")
+    print("🧪 CURRENT USER:", current_user)
     if model is None or scaler is None:
         raise HTTPException(status_code=500, detail="ML Model not loaded.")
 
@@ -374,6 +380,9 @@ def predict_risk(
             )
             db.add(db_result)
             db.commit()
+            print("✅ Data saved to database")
+        else:
+         print("❌ No user found → NOT saving data")
 
         return PredictionResponse(
             predicted_risk_level=prediction,

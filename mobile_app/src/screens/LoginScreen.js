@@ -38,13 +38,36 @@ export default function LoginScreen({ navigation }) {
         console.log('🔐 Starting login attempt...');
         const result = await loginUser(username, password);
         console.log('✅ Login result:', result);
+        // if (result && result.access_token) {
+        //   await saveData('@user', { name: username });
+        //   navigation.reset({
+        //     index: 0,
+        //     routes: [{ name: 'Home' }],
+        //   });
+        // }
+
         if (result && result.access_token) {
-          await saveData('@user', { name: username });
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          });
-        }
+  console.log("✅ LOGIN TOKEN:", result.access_token);
+
+  // Save token explicitly again (important)
+  await saveData('@auth_token', result.access_token);
+
+  // Verify token is saved
+  const savedToken = await getData('@auth_token');
+  console.log("🧪 TOKEN AFTER SAVE:", savedToken);
+
+  await saveData('@user', { name: username });
+
+  // Small delay to avoid async issues
+  setTimeout(() => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
+  }, 500);
+}
+
+
       } else {
         console.log('📝 Starting registration attempt...');
         await registerUser({ 

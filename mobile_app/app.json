@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "CogniScreen",
+    "slug": "dementia-screening",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1b3a6b"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#1b3a6b"
+      },
+      "permissions": [
+        "RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.dementiascreening"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "08ae0ab8-fc78-4108-b4f4-14726bc7107b"
+      }
+    }
+  }
+}

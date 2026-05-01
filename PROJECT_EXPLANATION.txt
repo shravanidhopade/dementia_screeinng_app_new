@@ -1,0 +1,86 @@
+================================================================================
+          PROJECT REPORT: MULTILINGUAL VOICE-BASED DEMENTIA SCREENING
+================================================================================
+
+1. PROJECT OVERVIEW
+-------------------
+This project is an end-to-end Early Dementia Screening System designed for elderly 
+and low-literacy users. It uses a combination of mobile cognitive tests and vocal 
+analysis to predict the risk of cognitive impairment.
+
+2. TECHNOLOGY STACK
+-------------------
+The project is built using a modern, scalable three-tier architecture:
+
+* FRONTEND (Mobile App):
+  - Framework: React Native with Expo.
+  - Languages: JavaScript (ES6+).
+  - Navigation: React Navigation (Stack Navigation).
+  - Storage: AsyncStorage (Local Session Management).
+  - Key Libraries: Axios (API calls), React Native Chart Kit (Progress tracking).
+
+* BACKEND (API Server):
+  - Framework: FastAPI (Python).
+  - Server: Uvicorn (ASGI server).
+  - Security: JWT (JSON Web Tokens) for session authentication.
+  - Hashing: PBKDF2 with SHA256 for secure password storage.
+
+* MACHINE LEARNING:
+  - Language: Python.
+  - Core Library: Scikit-learn.
+  - Algorithm: Random Forest Classifier (100 Decision Trees).
+  - Data Processing: Pandas, NumPy.
+  - Model Serialization: Joblib (.pkl format).
+
+* DATABASE:
+  - Database: SQLite (File-based, zero-configuration).
+  - ORM: SQLAlchemy (Object-Relational Mapping).
+
+3. HOW IT WORKS (MECHANISM)
+---------------------------
+1. PATIENT REGISTRATION: The user creates an account. Passwords are encrypted before 
+   being saved in the SQLite database.
+2. SCREENING TESTS: The patient performs 4 types of tests on the app:
+   - Voice Task: Analyzes speech rate, pauses, and pitch.
+   - Reaction Time: Tests motor speed and response.
+   - Attention Test: Tests focus and visual processing.
+   - Pattern Memory: Tests short-term recall.
+3. AI ANALYSIS: The test results (features) are sent to the FastAPI backend.
+4. RISK PREDICTION: The pre-trained Random Forest model processes the features 
+   and returns a risk level: "Low Risk", "Moderate Risk", or "High Risk".
+5. DATA STORAGE: The result is automatically saved to the patient's history 
+   in the centralized database.
+
+4. DATA STORAGE DETAILS
+-----------------------
+* LOCAL STORAGE: The app remembers the user's language and login session locally.
+* SERVER DATABASE (SQLITE):
+  - 'users' table: Stores account details (Username, Age, Hashed Password).
+  - 'screening_results' table: Stores every test score and the AI's risk 
+    prediction, linked to the User ID.
+* SECURITY: Uses Bearer Tokens (JWT). When a user logs in, they get a "Key" (token) 
+  that allows them to save data securely without sending their password every time.
+
+5. MACHINE LEARNING MODEL DETAILS
+---------------------------------
+* DATASET: Trained on a synthetic dataset representing clinical dementia patterns.
+* FEATURES (8 Indicators):
+  - Memory Accuracy
+  - Reaction Time
+  - Attention Accuracy
+  - Speech Rate (Words per minute)
+  - Pause Duration (Silence frequency)
+  - Pitch Variance (Vocal stability)
+  - Task Completion Time
+  - Age
+* ACCURACY: The Random Forest model achieved 100% Accuracy on the test 
+  set (based on synthetic dementia patterns).
+  - Precision: 1.00
+  - Recall: 1.00
+  - F1-Score: 1.00
+
+6. HOW TO RUN
+-------------
+* BACKEND: Run 'uvicorn main:app --reload' in 'backend_api'.
+* FRONTEND: Run 'npx expo start --web' in 'mobile_app'.
+================================================================================
